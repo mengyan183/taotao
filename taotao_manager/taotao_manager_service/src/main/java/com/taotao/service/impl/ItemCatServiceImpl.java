@@ -37,14 +37,15 @@ public class ItemCatServiceImpl implements ItemCatService {
     @Override
     public List<EasyUITreeData> getItemCatList(Long parentId) {
         TbItemCatExample tbItemCatExample = new TbItemCatExample();
-        Criteria criteria = tbItemCatExample.andParentIdEqualTo(parentId);
+        Criteria criteria = tbItemCatExample.createCriteria();
+        criteria.andParentIdEqualTo(parentId);
         List<TbItemCat> tbItemCats = tbItemCatMapper.selectByExample(tbItemCatExample);
         java.util.List<EasyUITreeData> easyUITreeDataArrayList = new java.util.ArrayList<EasyUITreeData>();
         for (com.taotao.pojo.TbItemCat tbItemCat : tbItemCats) {
             EasyUITreeData easyUITreeData = new EasyUITreeData();
             easyUITreeData.setId(tbItemCat.getId());
-            easyUITreeData.setName(tbItemCat.getName);
-            easyUITreeData.setState(tbItemCat.getIsParent ? "closed" : "open");
+            easyUITreeData.setText(tbItemCat.getName());
+            easyUITreeData.setState(tbItemCat.getIsParent() ? "closed" : "open");
             easyUITreeDataArrayList.add(easyUITreeData);
         }
         return easyUITreeDataArrayList;

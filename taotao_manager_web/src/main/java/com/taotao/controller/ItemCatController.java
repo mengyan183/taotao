@@ -1,5 +1,15 @@
 package com.taotao.controller;
 
+import com.taotao.common.pojo.EasyUITreeData;
+import com.taotao.service.ItemCatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 /**
  * Created by xingguo on 2017-09-05 11:33.
  *
@@ -8,11 +18,15 @@ package com.taotao.controller;
  */
 @Controller
 public class ItemCatController {
-    @AutoWired
-    private com.taotao.service.ItemCatService itemCatService;
+    /**
+     * 我们采用dubbo发布服务接口来实现注入
+     */
+    @Autowired
+    private ItemCatService itemCatService;
 
-    @ResultMapping("/item/cat/list")
-    public @ReponseBody List<com.taotao.common.pojo.EasyUITreeData> getItemCatList(@RequestParam(defaultValue="0")Long parentId){
+    @RequestMapping("/item/cat/list")
+    public @ResponseBody
+    List<EasyUITreeData> getItemCatList(@RequestParam(defaultValue="0")Long parentId){
             return itemCatService.getItemCatList(parentId);
 
     }
