@@ -60,16 +60,16 @@
         			$("#itemeEditForm").form("load",data);
         			
         			// 加载商品描述
-        			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
-        				if(_data.status == 200){
+        			$.getJSON('/item/desc/'+data.id,function(_data){
+        				if(_data.status == '200'){
         					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
         					itemEditEditor.html(_data.data.itemDesc);
         				}
-        			});
+        			},"json");
         			
         			//加载商品规格
-        			$.getJSON('/rest/item/param/item/query/'+data.id,function(_data){
-        				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
+        			$.getJSON('/item/edit/'+data.id,function(_data){
+        				if(_data && _data.status == '200' && _data.data && _data.data.paramData){
         					$("#itemeEditForm .params").show();
         					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
         					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
@@ -93,7 +93,7 @@
         					 html+= "</ul>";
         					 $("#itemeEditForm .params td").eq(1).html(html);
         				}
-        			});
+        			},"json");
         			
         			TAOTAO.init({
         				"pics" : data.image,
@@ -117,13 +117,13 @@
         	$.messager.confirm('确认','确定删除ID为 '+ids+' 的商品吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids};
-                	$.post("/rest/item/delete",params, function(data){
-            			if(data.status == 200){
+                	$.post("/item/updateBy/delete",params, function(data){
+            			if(data.status == '200'){
             				$.messager.alert('提示','删除商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
             			}
-            		});
+            		},"json");
         	    }
         	});
         }
@@ -139,13 +139,13 @@
         	$.messager.confirm('确认','确定下架ID为 '+ids+' 的商品吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids};
-                	$.post("/rest/item/instock",params, function(data){
-            			if(data.status == 200){
+                	$.post("/item/updateBy/instock",params, function(data){
+            			if(data.status == '200'){
             				$.messager.alert('提示','下架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
             			}
-            		});
+            		},"json");
         	    }
         	});
         }
@@ -161,13 +161,13 @@
         	$.messager.confirm('确认','确定上架ID为 '+ids+' 的商品吗？',function(r){
         	    if (r){
         	    	var params = {"ids":ids};
-                	$.post("/rest/item/reshelf",params, function(data){
-            			if(data.status == 200){
+                	$.post("/item/updateBy/reshelf",params, function(data){
+            			if(data.status == '200'){
             				$.messager.alert('提示','上架商品成功!',undefined,function(){
             					$("#itemList").datagrid("reload");
             				});
             			}
-            		});
+            		},"json");
         	    }
         	});
         }

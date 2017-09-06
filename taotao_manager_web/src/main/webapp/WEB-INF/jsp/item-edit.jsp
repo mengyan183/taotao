@@ -107,6 +107,6 @@
 					$("#itemList").datagrid("reload");
 				});
 			}
-		});
+		},"json");
 	}
 </script>
