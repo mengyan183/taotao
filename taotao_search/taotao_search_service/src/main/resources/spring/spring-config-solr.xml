@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:solr="http://www.springframework.org/schema/data/solr"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/solr
+        http://www.springframework.org/schema/data/solr/spring-solr.xsd">
+   <!-- <context:property-placeholder location="classpath*:/properties/solrConfig.properties"/>-->
+    <context:component-scan base-package="com.taotao.search.service.impl"/>
+    <!--solr单机版-->
+    <solr:solr-client id="solrClient" url="http://192.168.228.137:8080/solr/core2"/>
+  <!--  <bean class="org.apache.solr.client.solrj.impl.HttpSolrClient.Builder" id="builder">
+        <constructor-arg value="http://192.168.228.137:8080/solr/core2"/>
+    </bean>-->
+
+</beans>

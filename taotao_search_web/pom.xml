@@ -7,32 +7,20 @@
         <relativePath>../taotao_parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>taotao_manager_web</artifactId>
+    <artifactId>taotao_search_web</artifactId>
     <packaging>war</packaging>
-    <name>taotao_manager_web Maven Webapp</name>
+    <name>taotao_search_web Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
-        <dependency>
-            <groupId>com.taotao</groupId>
-            <artifactId>taotao_common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.taotao</groupId>
-            <artifactId>taotao_manager_interface</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.taotao</groupId>
-            <artifactId>taotao_content_interface</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>com.taotao</groupId>
             <artifactId>taotao_search_interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -61,6 +49,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
         </dependency>
         <!-- JSP相关 -->
         <dependency>
@@ -112,22 +104,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--添加pagehelper解决异常-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper
-            </artifactId>
-        </dependency>
-        <!-- 添加FastDFS客户端的引用 -->
-        <dependency>
-            <groupId>fastdfs_client</groupId>
-            <artifactId>fastdfs_client</artifactId>
-            <version>1.25</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
         <!-- 文件上传组件 -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -137,20 +113,22 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+        <!--添加pagehelper解决异常-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper
+            </artifactId>
         </dependency>
     </dependencies>
     <build>
-        <finalName>taotao_manager_web</finalName>
+        <finalName>taotao_portal_web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
-                    <port>9901</port>
+                    <port>9905</port>
                 </configuration>
             </plugin>
         </plugins>

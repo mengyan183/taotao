@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>taotao_manager</artifactId>
+        <artifactId>taotao_search</artifactId>
         <groupId>com.taotao</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>taotao_manager_service</artifactId>
+    <artifactId>taotao_search_service</artifactId>
     <packaging>war</packaging>
-    <name>taotao_manager_service Maven Webapp</name>
+    <name>taotao_search_service Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.taotao</groupId>
-            <artifactId>taotao_manager_interface</artifactId>
+            <artifactId>taotao_search_interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -92,9 +92,36 @@
             <groupId>com.github.sgroschupf</groupId>
             <artifactId>zkclient</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+        </dependency>
+        <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-solr</artifactId>
+        </dependency>
     </dependencies>
-
-
-
-
+    <!--Maven和Mybatis整合时打包漏掉mapper的xml文件及其它资源-->
+    <build>
+        <finalName>taotao_search_service</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <!-- 如果没有此节点，src/main/resources目录下的配置文件将被忽略 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>

@@ -5,6 +5,7 @@ import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.content.service.ContentService;
 import com.taotao.pojo.TbContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class ContentController {
         tbContent.setCreated(new Date());
         tbContent.setUpdated(new Date());
         contentService.addContent(tbContent);
+
         return TaotaoResult.ok();
     }
 
