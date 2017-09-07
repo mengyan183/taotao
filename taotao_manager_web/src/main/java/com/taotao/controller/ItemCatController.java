@@ -26,7 +26,7 @@ public class ItemCatController {
 
     @RequestMapping("/item/cat/list")
     public @ResponseBody
-    List<EasyUITreeData> getItemCatList(@RequestParam(defaultValue="0")Long parentId){
+    List<EasyUITreeData> getItemCatList(@RequestParam(value = "id",defaultValue="0")Long parentId){
             return itemCatService.getItemCatList(parentId);
 
     }

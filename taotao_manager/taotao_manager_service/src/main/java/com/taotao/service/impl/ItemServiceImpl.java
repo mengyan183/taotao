@@ -4,14 +4,19 @@ package com.taotao.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.pojo.EasyUIDataGridResult;
+import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.common.utils.IDUtils;
+import com.taotao.mapper.TbItemDescMapper;
 import com.taotao.mapper.TbItemMapper;
 import com.taotao.pojo.TbItem;
+import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,8 +54,8 @@ public class ItemServiceImpl implements ItemService {
      * 查询所有商品
      */
     @Override
-    public EasyUIDataGridResult getAllItemList(int page,int rows) {
-        PageHelper.startPage(page,rows);
+    public EasyUIDataGridResult getAllItemList(int page, int rows) {
+        PageHelper.startPage(page, rows);
         TbItemExample tbItemExample = new TbItemExample();
         List<TbItem> items = tbItemMapper.selectByExample(tbItemExample);
         PageInfo<TbItem> tbItemPageInfo = new PageInfo<>(items);
@@ -58,5 +63,96 @@ public class ItemServiceImpl implements ItemService {
         easyUIDataGridResult.setTotal(tbItemPageInfo.getTotal());
         easyUIDataGridResult.setRows(items);
         return easyUIDataGridResult;
+    }
+
+
+    @Autowired
+    private TbItemDescMapper tbItemDescMapper;
+
+    /**
+     * 添加商品
+     *
+     * @param tbItem
+     * @param itemDesc
+     */
+    @Override
+    public TaotaoResult addItem(TbItem tbItem, String itemDesc) {
+        Date date = new Date();
+        //生成商品id
+        tbItem.setId(IDUtils.genItemId());
+        tbItem.setCreated(date);
+        tbItem.setUpdated(date);
+        //1-正常 2-下架 3-删除
+        tbItem.setStatus((byte) 1);
+        //插入商品表
+        int id = tbItemMapper.insert(tbItem);
+        //商品描述
+        TbItemDesc tbItemDesc = new TbItemDesc();
+        tbItemDesc.setItemId(tbItem.getId());
+        tbItemDesc.setCreated(date);
+        tbItemDesc.setItemDesc(itemDesc);
+        tbItemDesc.setUpdated(date);
+        //插入商品描述表
+        tbItemDescMapper.insert(tbItemDesc);
+
+        return TaotaoResult.ok();
+    }
+
+
+    /**
+     * 我们采用通配符对商品进行操作
+     *
+     * @param ids
+     * @param operate
+     * @return
+     */
+    @Override
+    public void updateItemByOperate(String ids, String operate) {
+        Byte status = null;
+        if ("delete".equals(operate)) {
+            status = (byte) 3;
+        } else if ("instock".equals(operate)) {
+            status = (byte) 2;
+        } else {
+            status = (byte) 1;
+        }
+
+        String[] split = ids.split(",");
+        for (String id : split) {
+            TbItem tbItem = tbItemMapper.selectByPrimaryKey(Long.parseLong(id));
+            tbItem.setStatus(status);
+            tbItem.setUpdated(new Date());
+            tbItemMapper.updateByPrimaryKey(tbItem);
+        }
+       return;
+    }
+
+    /**
+     * 查询商品介绍
+     *
+     * @param id
+     */
+    @Override
+    public TbItemDesc itemDescByItemId(String id) {
+        return tbItemDescMapper.selectByPrimaryKey(Long.parseLong(id));
+    }
+
+    /**
+     * 更新商品
+     *
+     * @param tbItem
+     * @param desc
+     */
+    @Override
+    public void updateItem(TbItem tbItem, String desc) {
+        TbItem tbItem1 = tbItemMapper.selectByPrimaryKey(tbItem.getId());
+        tbItem.setStatus(tbItem1.getStatus());
+        tbItem.setCreated(tbItem1.getCreated());
+        tbItem.setUpdated(new Date());
+        tbItemMapper.updateByPrimaryKey(tbItem);
+        TbItemDesc tbItemDesc = tbItemDescMapper.selectByPrimaryKey(tbItem.getId());
+        tbItemDesc.setItemDesc(desc);
+        tbItemDesc.setUpdated(new Date());
+        tbItemDescMapper.updateByPrimaryKey(tbItemDesc);
     }
 }

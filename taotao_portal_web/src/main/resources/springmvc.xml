@@ -14,11 +14,12 @@
       http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
 ">
+    <context:property-placeholder location="classpath*:ad.properties"/>
     <context:component-scan base-package="com.taotao.protal.controller"/>
     <mvc:annotation-driven/>
     <!--静态资源映射-->
-    <mvc:resources mapping="/js/**" location="/WEB-INF/js/"/>
-    <mvc:resources mapping="/css/**" location="/WEB-INF/css/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
     <!--定义文件上传解析器-->
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -35,7 +36,7 @@
     <!--引用dubbo服务-->
     <dubbo:application name="taotao_portal_web"/>
     <dubbo:registry protocol="zookeeper" address="192.168.228.134:2181"/>
-  <!--  <dubbo:reference interface="com.taotao.protal.service.ItemService" id="itemService"/>
-    <dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService"/>-->
+    <dubbo:reference interface="com.taotao.content.service.ContentService" id="contentService"/>
+   <!-- <dubbo:reference interface="com.taotao.service.ItemCatService" id="itemCatService"/>-->
 
 </beans>
