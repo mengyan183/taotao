@@ -2,16 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
        http://code.alibabatech.com/schema/dubbo
-       http://code.alibabatech.com/schema/dubbo/dubbo.xsd
-">
-    <context:component-scan base-package="com.taotao.search.service"/>
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+   <!-- <context:component-scan base-package="com.taotao.search.service.impl"/>-->
     <!--使用dubbo发布服务-->
     <dubbo:application name="taotao_manager"/>
     <!--注册中心地址-->
@@ -21,6 +16,5 @@
     <!--发布服务的接口-->
 
     <dubbo:service interface="com.taotao.search.service.SearchItemService" ref="searchItemServiceImpl" timeout="300000"/>
-    <!--  <dubbo:service interface="com.taotao.service.ItemCatService" ref="itemCatServiceImpl" timeout="300000"/>
-  -->
+      <dubbo:service interface="com.taotao.search.service.SearchService" ref="searchServiceImpl" timeout="300000"/>
 </beans>

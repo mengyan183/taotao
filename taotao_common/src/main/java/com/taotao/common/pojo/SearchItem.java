@@ -49,8 +49,12 @@ public class SearchItem implements Serializable{
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String[] getImage() {
+        if(image!=null&&!"".equals(image)){
+            String[] split = image.split(",");
+            return split;
+        }
+        return null;
     }
 
     public void setImage(String image) {

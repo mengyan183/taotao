@@ -1,9 +1,12 @@
 package com.taotao.search.service.impl;
 
 import com.taotao.common.pojo.SearchItem;
+import com.taotao.common.pojo.SearchResult;
 import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.search.dao.ItemSearchDao;
 import com.taotao.search.mapper.ItemMapper;
 import com.taotao.search.service.SearchItemService;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.common.SolrDocument;
@@ -52,7 +55,8 @@ public class SearchItemServiceImpl implements SearchItemService {
             httpSolrClient.add(document);
         }
         httpSolrClient.commit();
-        httpSolrClient.close();
+
         return TaotaoResult.ok();
     }
+
 }

@@ -2,6 +2,8 @@ package com.taotao.search.service;
 
 import com.taotao.common.pojo.TaotaoResult;
 
+
+
 /**
  * Created by xingguo on 2017-09-07 23:06.
  *
@@ -14,4 +16,4 @@ public interface SearchItemService {
      * @return
      */
     TaotaoResult importAllItemsToIndex() throws Exception;
-}
+ }
