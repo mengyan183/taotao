@@ -23,20 +23,18 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:spring/spring-config-*.xml")
 public class TestSolrJcolony {
-/*
-    @Resource(name = "cloudSolrClient")
+    @Resource(name = "CloudSolrClient")
     private CloudSolrClient build;
-*/
 
 
     @Test
     public void testSolrCloud() throws Exception {
-        List<String> zkHost = new ArrayList<String>();
+       /* List<String> zkHost = new ArrayList<String>();
         zkHost.add("192.168.228.138:2181");
         zkHost.add("192.168.228.138:2182");
         zkHost.add("192.168.228.138:2183");
-        CloudSolrClient build = new CloudSolrClient.Builder().withZkHost(zkHost).build();
-        build.setDefaultCollection("core");
+        CloudSolrClient build = new CloudSolrClient.Builder().withZkHost(zkHost).build();*/
+        /*build.setDefaultCollection("core");*/
         SolrInputDocument solrInputFields = new SolrInputDocument();
         solrInputFields.addField("item_title", "测试商品");
         solrInputFields.addField("item_price", "100");
@@ -46,12 +44,12 @@ public class TestSolrJcolony {
 
     } @Test
     public void testSolrCloudDelte() throws Exception {
-        List<String> zkHost = new ArrayList<String>();
+       /* List<String> zkHost = new ArrayList<String>();
         zkHost.add("192.168.228.138:2181");
         zkHost.add("192.168.228.138:2182");
         zkHost.add("192.168.228.138:2183");
-        CloudSolrClient build = new CloudSolrClient.Builder().withZkHost(zkHost).build();
-        build.setDefaultCollection("core");
+        CloudSolrClient build = new CloudSolrClient.Builder().withZkHost(zkHost).build();*/
+        /*build.setDefaultCollection("core");*/
         build.deleteByQuery("*:*");
         build.commit();
 
