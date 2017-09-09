@@ -1,6 +1,7 @@
 package com.taotao.common.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by xingguo on 2017-09-07 22:24.
@@ -16,6 +17,15 @@ public class SearchItem implements Serializable{
     private String image;
     private String category_name;
     private String item_desc;
+    private List<String> images;
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
 
     public Long getId() {
         return id;

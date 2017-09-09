@@ -12,10 +12,15 @@ import com.taotao.pojo.TbItem;
 import com.taotao.pojo.TbItemDesc;
 import com.taotao.pojo.TbItemExample;
 import com.taotao.service.ItemService;
+import net.sf.jsqlparser.statement.select.Top;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.jms.*;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +74,13 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private TbItemDescMapper tbItemDescMapper;
 
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Resource(name = "itemAddTopicDestination")
+    private Topic topic;
+
+
     /**
      * 添加商品
      *
@@ -78,8 +90,9 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public TaotaoResult addItem(TbItem tbItem, String itemDesc) {
         Date date = new Date();
+       final long itemid=IDUtils.genItemId();
         //生成商品id
-        tbItem.setId(IDUtils.genItemId());
+        tbItem.setId(itemid);
         tbItem.setCreated(date);
         tbItem.setUpdated(date);
         //1-正常 2-下架 3-删除
@@ -94,6 +107,14 @@ public class ItemServiceImpl implements ItemService {
         tbItemDesc.setUpdated(date);
         //插入商品描述表
         tbItemDescMapper.insert(tbItemDesc);
+        //商品添加完成后发送activemq
+        jmsTemplate.send(topic, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage textMessage = session.createTextMessage(itemid + "");
+                return textMessage;
+            }
+        });
 
         return TaotaoResult.ok();
     }

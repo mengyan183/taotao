@@ -15,6 +15,6 @@
     <dubbo:protocol name="dubbo" port="20882"/>
     <!--发布服务的接口-->
 
-    <dubbo:service interface="com.taotao.search.service.SearchItemService" ref="searchItemServiceImpl" timeout="300000"/>
-      <dubbo:service interface="com.taotao.search.service.SearchService" ref="searchServiceImpl" timeout="300000"/>
+    <dubbo:service interface="com.taotao.search.service.SearchItemService" ref="searchItemServiceImpl" timeout="3600000"/>
+      <dubbo:service interface="com.taotao.search.service.SearchService" ref="searchServiceImpl" timeout="3600000"/>
 </beans>

@@ -4,6 +4,7 @@ import com.taotao.common.pojo.SearchItem;
 import com.taotao.common.pojo.SearchResult;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -24,12 +25,12 @@ import java.util.Map;
 @Repository
 public class ItemSearchDao {
 
-    @Resource(name = "solrClient")
-    private SolrClient solrClient;
+    @Resource(name = "CloudSolrClient")
+    private CloudSolrClient cloudSolrClient;
 
     public SearchResult getSearchResult(SolrQuery solrQuery) throws Exception {
         //根据query查询索引库
-        QueryResponse query = solrClient.query(solrQuery);
+        QueryResponse query = cloudSolrClient.query(solrQuery);
         //获得所有结果
         SolrDocumentList results = query.getResults();
         SearchResult searchResult = new SearchResult();
@@ -48,7 +49,13 @@ public class ItemSearchDao {
                 itemName = (String) solrDocument.get("item_title");
             }
             searchItem.setId(Long.valueOf((String) solrDocument.get("id")));
-            searchItem.setImage((String) solrDocument.get("item_image"));
+            Object item_image = solrDocument.get("item_image");
+            searchItem.setImages((List<String>) item_image);
+            StringBuffer stringBuffer = new StringBuffer("");
+            for (String s : (List<String>) item_image){
+                stringBuffer.append(s);
+            }
+            searchItem.setImage(stringBuffer.toString());
             searchItem.setTitle(itemName);
             searchItem.setSell_point((String) solrDocument.get("item_sell_point"));
             searchItem.setPrice((Long) solrDocument.get("item_price"));

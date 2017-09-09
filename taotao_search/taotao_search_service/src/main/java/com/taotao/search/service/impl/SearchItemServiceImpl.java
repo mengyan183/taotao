@@ -8,6 +8,7 @@ import com.taotao.search.mapper.ItemMapper;
 import com.taotao.search.service.SearchItemService;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
@@ -28,8 +29,8 @@ import java.util.List;
 @Service
 @Transactional
 public class SearchItemServiceImpl implements SearchItemService {
-    @Resource(name = "solrClient")
-    private HttpSolrClient httpSolrClient;
+    @Resource(name = "CloudSolrClient")
+    private CloudSolrClient cloudSolrClient;
 
     @Autowired
     private ItemMapper itemMapper;
@@ -52,9 +53,9 @@ public class SearchItemServiceImpl implements SearchItemService {
             document.addField("item_image", searchItem.getImage());
             document.addField("item_category_name", searchItem.getCategory_name());
             document.addField("item_desc", searchItem.getItem_desc());
-            httpSolrClient.add(document);
+            cloudSolrClient.add(document);
         }
-        httpSolrClient.commit();
+        cloudSolrClient.commit();
 
         return TaotaoResult.ok();
     }

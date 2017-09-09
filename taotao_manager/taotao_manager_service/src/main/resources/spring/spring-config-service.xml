@@ -19,6 +19,6 @@
     <!--使用dubbo暴露的port发布服务-->
     <dubbo:protocol name="dubbo" port="20880"/>
     <!--发布服务的接口-->
-    <dubbo:service interface="com.taotao.service.ItemService" ref="itemServiceImpl" timeout="300000"/>
-    <dubbo:service interface="com.taotao.service.ItemCatService" ref="itemCatServiceImpl" timeout="300000"/>
+    <dubbo:service interface="com.taotao.service.ItemService" ref="itemServiceImpl" timeout="3600000"/>
+    <dubbo:service interface="com.taotao.service.ItemCatService" ref="itemCatServiceImpl" timeout="3600000"/>
 </beans>

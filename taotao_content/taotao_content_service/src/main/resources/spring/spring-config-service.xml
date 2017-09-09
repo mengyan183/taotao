@@ -20,7 +20,7 @@
     <dubbo:protocol name="dubbo" port="20881"/>
     <!--发布服务的接口-->
 
-    <dubbo:service interface="com.taotao.content.service.ContentCategoryService" ref="contentCategoryServiceImpl" timeout="300000"/>
-    <dubbo:service interface="com.taotao.content.service.ContentService" ref="contentServiceImpl" timeout="300000"/>
+    <dubbo:service interface="com.taotao.content.service.ContentCategoryService" ref="contentCategoryServiceImpl" timeout="3600000"/>
+    <dubbo:service interface="com.taotao.content.service.ContentService" ref="contentServiceImpl" timeout="3600000"/>
 
 </beans>
