@@ -115,14 +115,12 @@
         <!--添加pagehelper解决异常-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper
-            </artifactId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
         <!-- 添加FastDFS客户端的引用 -->
         <dependency>
-            <groupId>fastdfs_client</groupId>
-            <artifactId>fastdfs_client</artifactId>
-            <version>1.25</version>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
